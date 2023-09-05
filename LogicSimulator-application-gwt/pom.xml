@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.orangomango</groupId>
         <artifactId>logicsim</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
     </parent>
 
     <artifactId>LogicSimulator-application-gwt</artifactId>
@@ -41,7 +41,7 @@
         <dependency>
             <groupId>com.orangomango</groupId>
             <artifactId>LogicSimulator-application</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
             <classifier>sources</classifier>
         </dependency>
 
@@ -96,20 +96,6 @@
 
         <dependency>
             <groupId>dev.webfx</groupId>
-            <artifactId>webfx-extras-imagestore</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-extras-materialdesign</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
             <artifactId>webfx-extras-util-animation</artifactId>
             <version>0.1.0-SNAPSHOT</version>
             <classifier>sources</classifier>
@@ -118,13 +104,6 @@
         <dependency>
             <groupId>dev.webfx</groupId>
             <artifactId>webfx-extras-util-background</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-extras-util-border</artifactId>
             <version>0.1.0-SNAPSHOT</version>
             <classifier>sources</classifier>
         </dependency>
@@ -257,7 +236,42 @@
 
         <dependency>
             <groupId>dev.webfx</groupId>
+            <artifactId>webfx-platform-ast</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+            <classifier>sources</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.webfx</groupId>
+            <artifactId>webfx-platform-ast-json</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+            <classifier>sources</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.webfx</groupId>
+            <artifactId>webfx-platform-ast-json-gwt</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+            <classifier>sources</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.webfx</groupId>
             <artifactId>webfx-platform-async</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+            <classifier>sources</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.webfx</groupId>
+            <artifactId>webfx-platform-blob</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+            <classifier>sources</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.webfx</groupId>
+            <artifactId>webfx-platform-blob-gwt</artifactId>
             <version>0.1.0-SNAPSHOT</version>
             <classifier>sources</classifier>
         </dependency>
@@ -309,20 +323,6 @@
             <artifactId>webfx-platform-javabase-emul-gwt</artifactId>
             <version>0.1.0-SNAPSHOT</version>
             <classifier>shaded-sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-platform-json</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-platform-json-gwt</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
         </dependency>
 
         <dependency>
@@ -404,63 +404,7 @@
 
         <dependency>
             <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-i18n</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-i18n-controls</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-ui-action</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-ui-controls</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-ui-fxraiser</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-ui-fxraiser-json</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-ui-json</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-ui-operation</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-            <classifier>sources</classifier>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-ui-validation</artifactId>
+            <artifactId>webfx-stack-ui-dialog</artifactId>
             <version>0.1.0-SNAPSHOT</version>
             <classifier>sources</classifier>
         </dependency>

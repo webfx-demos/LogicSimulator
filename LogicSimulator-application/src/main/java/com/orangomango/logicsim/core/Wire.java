@@ -1,16 +1,16 @@
 package com.orangomango.logicsim.core;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.geometry.Rectangle2D;
+import com.orangomango.logicsim.Util;
+import dev.webfx.platform.ast.AST;
+import dev.webfx.platform.ast.AstArray;
+import dev.webfx.platform.ast.AstObject;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.util.*;
-import dev.webfx.platform.json.Json;
-import dev.webfx.platform.json.JsonObject;
-import dev.webfx.platform.json.JsonArray;
-
-import com.orangomango.logicsim.Util;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Wire{
 	private GraphicsContext gc;
@@ -89,13 +89,13 @@ public class Wire{
 		}
 	}
 
-	public JsonObject getJSON(){
-		JsonObject json = Json.createObject();
+	public AstObject getJSON(){
+		AstObject json = AST.createObject();
 		json.set("pin1", this.pin1.getId());
 		json.set("pin2", this.pin2.getId());
-		JsonArray ps = Json.createArray();
+		AstArray ps = AST.createArray();
 		for (WirePoint p : this.points){
-			JsonObject o = Json.createObject();
+			AstObject o = AST.createObject();
 			o.set("x", p.getX());
 			o.set("y", p.getY());
 			ps.push(o);

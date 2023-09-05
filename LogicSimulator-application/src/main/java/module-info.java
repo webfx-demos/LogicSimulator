@@ -10,12 +10,13 @@ module LogicSimulator.application {
     requires webfx.extras.canvas.blob;
     requires webfx.extras.filepicker;
     requires webfx.extras.webtext;
+    requires webfx.platform.ast;
+    requires webfx.platform.blob;
     requires webfx.platform.file;
-    requires webfx.platform.json;
     requires webfx.platform.os;
     requires webfx.platform.resource;
     requires webfx.platform.scheduler;
-    requires webfx.stack.ui.controls;
+    requires webfx.stack.ui.dialog;
 
     // Exported packages
     exports com.orangomango.logicsim;

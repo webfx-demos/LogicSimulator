@@ -1,16 +1,16 @@
 package com.orangomango.logicsim.core;
 
-import javafx.scene.canvas.GraphicsContext;
+import dev.webfx.platform.ast.AST;
+import dev.webfx.platform.ast.AstArray;
+import dev.webfx.platform.ast.AstObject;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-
-import dev.webfx.platform.json.Json;
-import dev.webfx.platform.json.JsonObject;
-import dev.webfx.platform.json.JsonArray;
 
 public class Bus extends Gate{
 	private boolean on = false;
@@ -53,10 +53,10 @@ public class Bus extends Gate{
 	}
 
 	@Override
-	public JsonObject getJSON(){
-		JsonObject json = super.getJSON();
+	public AstObject getJSON(){
+		AstObject json = super.getJSON();
 		json.set("id", this.id);
-		JsonArray ids = Json.createArray();
+		AstArray ids = AST.createArray();
 		for (Bus bus : this.connections){
 			ids.push(bus.getId());
 		}

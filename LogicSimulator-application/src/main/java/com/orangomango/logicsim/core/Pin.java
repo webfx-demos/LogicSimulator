@@ -1,19 +1,18 @@
 package com.orangomango.logicsim.core;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.Font;
-
-import java.util.*;
-
-import dev.webfx.platform.json.Json;
-import dev.webfx.platform.json.JsonObject;
-import dev.webfx.platform.json.ReadOnlyJsonObject;
-import dev.webfx.platform.json.JsonArray;
-
 import com.orangomango.logicsim.Util;
+import dev.webfx.platform.ast.AST;
+import dev.webfx.platform.ast.AstArray;
+import dev.webfx.platform.ast.AstObject;
+import dev.webfx.platform.ast.ReadOnlyAstObject;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pin{
 	private Rectangle2D rect;
@@ -42,7 +41,7 @@ public class Pin{
 		return this.owner;
 	}
 
-	public Pin(ReadOnlyJsonObject json, boolean updatePinId){
+	public Pin(ReadOnlyAstObject json, boolean updatePinId){
 		this.rect = new Rectangle2D(json.getObject("rect").getDouble("x"), json.getObject("rect").getDouble("y"), json.getObject("rect").getDouble("w"), json.getObject("rect").getDouble("h"));
 		this.doInput = json.getBoolean("doInput");
 		this.id = json.getInteger("id");
@@ -51,17 +50,17 @@ public class Pin{
 		}
 	}
 
-	public JsonObject getJSON(){
-		JsonObject json = Json.createObject();
+	public AstObject getJSON(){
+		AstObject json = AST.createObject();
 		json.set("id", this.id);
-		JsonObject r = Json.createObject();
+		AstObject r = AST.createObject();
 		r.set("x", this.rect.getMinX());
 		r.set("y", this.rect.getMinY());
 		r.set("w", this.rect.getWidth());
 		r.set("h", this.rect.getHeight());
 		json.set("rect", r);
 		json.set("doInput", this.doInput);
-		JsonArray array = Json.createArray();
+		AstArray array = AST.createArray();
 		for (Pin p : this.attached){
 			array.push(p.getId());
 		}

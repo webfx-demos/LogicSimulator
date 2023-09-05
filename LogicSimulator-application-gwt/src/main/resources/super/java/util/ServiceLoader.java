@@ -13,21 +13,21 @@ public class ServiceLoader<S> implements Iterable<S> {
             case "dev.webfx.extras.filepicker.spi.FilePickerProvider": return new ServiceLoader<S>(dev.webfx.extras.filepicker.spi.impl.gwt.GwtFilePickerProvider::new);
             case "dev.webfx.kit.launcher.spi.WebFxKitLauncherProvider": return new ServiceLoader<S>(dev.webfx.kit.launcher.spi.impl.gwt.GwtWebFxKitLauncherProvider::new);
             case "dev.webfx.kit.mapper.spi.WebFxKitMapperProvider": return new ServiceLoader<S>(dev.webfx.kit.mapper.spi.impl.gwt.GwtWebFxKitHtmlMapperProvider::new);
+            case "dev.webfx.platform.ast.formatter.spi.AstFormatterProvider": return new ServiceLoader<S>(dev.webfx.platform.ast.json.JsonFormatterProvider::new);
+            case "dev.webfx.platform.ast.json.spi.JsonProvider": return new ServiceLoader<S>(dev.webfx.platform.ast.json.spi.impl.gwt.GwtJsonObject::create);
+            case "dev.webfx.platform.ast.parser.spi.AstParserProvider": return new ServiceLoader<S>(dev.webfx.platform.ast.json.JsonAstParserProvider::new);
+            case "dev.webfx.platform.blob.spi.BlobProvider": return new ServiceLoader<S>(dev.webfx.platform.blob.spi.impl.gwt.GwtBlobProvider::new);
             case "dev.webfx.platform.boot.spi.ApplicationBooterProvider": return new ServiceLoader<S>(dev.webfx.platform.boot.spi.impl.gwt.GwtApplicationBooterProvider::new);
             case "dev.webfx.platform.boot.spi.ApplicationJob": return new ServiceLoader<S>();
-            case "dev.webfx.platform.boot.spi.ApplicationModuleBooter": return new ServiceLoader<S>(dev.webfx.kit.launcher.WebFxKitLauncherModuleBooter::new, dev.webfx.platform.boot.spi.impl.ApplicationJobsBooter::new, dev.webfx.platform.resource.spi.impl.gwt.GwtResourceModuleBooter::new, dev.webfx.stack.ui.fxraiser.json.JsonFXRaiserModuleBooter::new);
+            case "dev.webfx.platform.boot.spi.ApplicationModuleBooter": return new ServiceLoader<S>(dev.webfx.kit.launcher.WebFxKitLauncherModuleBooter::new, dev.webfx.platform.boot.spi.impl.ApplicationJobsBooter::new, dev.webfx.platform.resource.spi.impl.gwt.GwtResourceModuleBooter::new);
             case "dev.webfx.platform.console.spi.ConsoleProvider": return new ServiceLoader<S>(dev.webfx.platform.console.spi.impl.gwt.GwtConsoleProvider::new);
-            case "dev.webfx.platform.file.spi.BlobProvider": return new ServiceLoader<S>(dev.webfx.platform.file.spi.impl.gwt.GwtBlobProvider::new);
             case "dev.webfx.platform.file.spi.FileProvider": return new ServiceLoader<S>(dev.webfx.platform.file.spi.impl.gwt.GwtFileProvider::new);
-            case "dev.webfx.platform.json.spi.JsonProvider": return new ServiceLoader<S>(dev.webfx.platform.json.spi.impl.gwt.GwtJsonObject::create);
             case "dev.webfx.platform.os.spi.OperatingSystemProvider": return new ServiceLoader<S>(dev.webfx.platform.os.spi.impl.gwt.GwtOperatingSystemProvider::new);
             case "dev.webfx.platform.resource.spi.ResourceProvider": return new ServiceLoader<S>(dev.webfx.platform.resource.spi.impl.gwt.GwtResourceProvider::new);
             case "dev.webfx.platform.resource.spi.impl.gwt.GwtResourceBundle": return new ServiceLoader<S>(LogicSimulator.application.gwt.embed.EmbedResourcesBundle.ProvidedGwtResourceBundle::new);
             case "dev.webfx.platform.scheduler.spi.SchedulerProvider": return new ServiceLoader<S>(dev.webfx.platform.uischeduler.spi.impl.gwt.GwtUiSchedulerProvider::new);
             case "dev.webfx.platform.shutdown.spi.ShutdownProvider": return new ServiceLoader<S>(dev.webfx.platform.shutdown.spi.impl.gwt.GwtShutdownProvider::new);
             case "dev.webfx.platform.uischeduler.spi.UiSchedulerProvider": return new ServiceLoader<S>(dev.webfx.platform.uischeduler.spi.impl.gwt.GwtUiSchedulerProvider::new);
-            case "dev.webfx.platform.util.keyobject.parser.spi.TreeParserProvider": return new ServiceLoader<S>(dev.webfx.platform.json.JsonTreeParserProvider::new);
-            case "dev.webfx.stack.i18n.operations.ChangeLanguageRequestEmitter": return new ServiceLoader<S>();
             case "javafx.application.Application": return new ServiceLoader<S>(com.orangomango.logicsim.MainApplication::new);
 
             // UNKNOWN SPI

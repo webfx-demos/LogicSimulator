@@ -8,7 +8,7 @@
     <parent>
         <groupId>com.orangomango</groupId>
         <artifactId>logicsim</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
     </parent>
 
     <artifactId>LogicSimulator-application-openjfx</artifactId>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.orangomango</groupId>
             <artifactId>LogicSimulator-application</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
         </dependency>
 
         <dependency>
@@ -53,6 +53,18 @@
 
         <dependency>
             <groupId>dev.webfx</groupId>
+            <artifactId>webfx-platform-ast-json-java</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.webfx</groupId>
+            <artifactId>webfx-platform-blob-java</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.webfx</groupId>
             <artifactId>webfx-platform-boot-java</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
@@ -66,18 +78,6 @@
         <dependency>
             <groupId>dev.webfx</groupId>
             <artifactId>webfx-platform-file-java</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-platform-json</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-platform-json-java</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
 
@@ -102,12 +102,6 @@
         <dependency>
             <groupId>dev.webfx</groupId>
             <artifactId>webfx-platform-shutdown-java</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>dev.webfx</groupId>
-            <artifactId>webfx-stack-ui-fxraiser-json</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
 

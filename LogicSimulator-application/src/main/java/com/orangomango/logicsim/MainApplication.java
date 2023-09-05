@@ -1,52 +1,51 @@
 package com.orangomango.logicsim;
 
+import com.orangomango.logicsim.core.*;
+import com.orangomango.logicsim.ui.*;
+import dev.webfx.extras.canvas.blob.CanvasBlob;
+import dev.webfx.extras.filepicker.FilePicker;
+import dev.webfx.extras.webtext.HtmlText;
+import dev.webfx.platform.ast.*;
+import dev.webfx.platform.ast.formatter.AstFormatter;
+import dev.webfx.platform.ast.parser.AstParser;
+import dev.webfx.platform.blob.Blob;
+import dev.webfx.platform.blob.spi.BlobProvider;
+import dev.webfx.platform.file.File;
+import dev.webfx.platform.file.FileReader;
+import dev.webfx.platform.os.OperatingSystem;
+import dev.webfx.platform.resource.Resource;
+import dev.webfx.platform.scheduler.Scheduler;
+import dev.webfx.stack.ui.dialog.DialogCallback;
+import dev.webfx.stack.ui.dialog.DialogUtil;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.stage.Screen;
-import javafx.stage.FileChooser;
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
-import javafx.scene.layout.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.KeyCode;
-import javafx.scene.canvas.*;
-import javafx.scene.paint.Color;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.animation.*;
-import javafx.util.Duration;
-import javafx.geometry.Rectangle2D;
-import javafx.geometry.Point2D;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Slider;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
-import dev.webfx.platform.json.*;
-import dev.webfx.platform.file.FileReader;
-import dev.webfx.platform.file.File;
-import dev.webfx.platform.file.Blob;
-import dev.webfx.platform.file.spi.BlobProvider;
-import dev.webfx.platform.scheduler.Scheduler;
-import dev.webfx.platform.resource.Resource;
-import dev.webfx.platform.os.OperatingSystem;
-import dev.webfx.extras.filepicker.FilePicker;
-import dev.webfx.extras.canvas.blob.CanvasBlob;
-import dev.webfx.extras.webtext.HtmlText;
-import dev.webfx.stack.ui.controls.dialog.DialogUtil;
-import dev.webfx.stack.ui.controls.dialog.DialogCallback;
-
-import com.orangomango.logicsim.ui.*;
-import com.orangomango.logicsim.core.*;
 
 /**
  * Logic simulator made in Java/JavaFX
@@ -159,7 +158,7 @@ public class MainApplication extends Application{
 				int backup = Pin.PIN_ID;
 				Pin.PIN_ID = 0;
 				FileReader.create().readAsText(file).onSuccess(jsonData -> {
-					JsonObject json = load(jsonData, gc, gates, wires, true);
+					ReadOnlyAstObject json = load(jsonData, gc, gates, wires, true);
 					if (json == null){
 						Pin.PIN_ID = backup;
 						return;
@@ -1079,44 +1078,44 @@ public class MainApplication extends Application{
 	}
 
 	private void save(String fileName, String chipName, Color color){
-		JsonObject json = Json.createObject();
-		JsonArray data = Json.createArray();
+		AstObject json = AST.createObject();
+		AstArray data = AST.createArray();
 		for (Gate gate : this.gates){
 			data.push(gate.getJSON());
 		}
 		json.set("gates", data);
-		data = Json.createArray();
+		data = AST.createArray();
 		for (Wire wire : this.wires){
 			data.push(wire.getJSON());
 		}
 		json.set("wires", data);
 		if (chipName != null && color != null){
 			json.set("chipName", chipName);
-			JsonObject cl = Json.createObject();
+			AstObject cl = AST.createObject();
 			cl.set("red", color.getRed());
 			cl.set("green", color.getGreen());
 			cl.set("blue", color.getBlue());
 			json.set("color", cl);
 		}
 
-		Blob textBlob = BlobProvider.get().createTextBlob(JsonFormatter.toJsonString(json));
+		Blob textBlob = BlobProvider.get().createTextBlob(AstFormatter.formatObject(json, "json"));
 		BlobProvider.get().exportBlob(textBlob, fileName);
 	}
 
-	public static JsonObject load(String jsonData, GraphicsContext gc, List<Gate> tempGates, List<Wire> tempWires, boolean updatePinId){
-		JsonObject json = Json.parseObjectSilently(jsonData);
+	public static ReadOnlyAstObject load(String jsonData, GraphicsContext gc, List<Gate> tempGates, List<Wire> tempWires, boolean updatePinId){
+		ReadOnlyAstObject json = AstParser.parseObject(jsonData, "json");
 
-		Map<Bus, ReadOnlyJsonArray> busConnections = new HashMap<>();
+		Map<Bus, ReadOnlyAstArray> busConnections = new HashMap<>();
 
 		// Load gates
 		for (int i = 0; i < json.getArray("gates").size(); i++){
-			ReadOnlyJsonObject gate = json.getArray("gates").getObject(i);
+			ReadOnlyAstObject gate = json.getArray("gates").getObject(i);
 			String name = gate.getString("name");
 			Color color = gate.getObject("color") == null ? null : Color.color(gate.getObject("color").getDouble("red"), gate.getObject("color").getDouble("green"), gate.getObject("color").getDouble("blue"));
 			Rectangle2D rect = new Rectangle2D(gate.getObject("rect").getDouble("x"), gate.getObject("rect").getDouble("y"), gate.getObject("rect").getDouble("w"), gate.getObject("rect").getDouble("h"));
 			List<Pin> pins = new ArrayList<>();
 			for (int j = 0; j < gate.getArray("pins").size(); j++){
-				ReadOnlyJsonObject pin = gate.getArray("pins").getObject(j);
+				ReadOnlyAstObject pin = gate.getArray("pins").getObject(j);
 				Pin p = new Pin(pin, updatePinId);
 				pins.add(p);
 			}
@@ -1151,9 +1150,9 @@ public class MainApplication extends Application{
 
 		// Attach gates' pins
 		for (int i = 0; i < json.getArray("gates").size(); i++){
-			ReadOnlyJsonObject gate = json.getArray("gates").getObject(i);
+			ReadOnlyAstObject gate = json.getArray("gates").getObject(i);
 			for (int j = 0; j < gate.getArray("pins").size(); j++){
-				ReadOnlyJsonObject pin = gate.getArray("pins").getObject(j);
+				ReadOnlyAstObject pin = gate.getArray("pins").getObject(j);
 				int pinId = pin.getInteger("id");
 				Pin currentPin = getPinById(tempGates, pinId);
 				for (int k = 0; k < pin.getArray("attached").size(); k++){
@@ -1166,12 +1165,12 @@ public class MainApplication extends Application{
 
 		// Load wires
 		for (int i = 0; i < json.getArray("wires").size(); i++){
-			ReadOnlyJsonObject wire = json.getArray("wires").getObject(i);
+			ReadOnlyAstObject wire = json.getArray("wires").getObject(i);
 			Pin p1 = getPinById(tempGates, wire.getInteger("pin1"));
 			Pin p2 = getPinById(tempGates, wire.getInteger("pin2"));
 			List<Point2D> points = new ArrayList<>();
 			for (int j = 0; j < wire.getArray("points").size(); j++){
-				ReadOnlyJsonObject p = wire.getArray("points").getObject(j);
+				ReadOnlyAstObject p = wire.getArray("points").getObject(j);
 				points.add(new Point2D(p.getDouble("x"), p.getDouble("y")));
 			}
 			tempWires.add(new Wire(gc, p1, p2, points));

@@ -1,18 +1,17 @@
 package com.orangomango.logicsim.core;
 
-import javafx.scene.canvas.GraphicsContext;
+import com.orangomango.logicsim.Util;
+import dev.webfx.platform.ast.AST;
+import dev.webfx.platform.ast.AstArray;
+import dev.webfx.platform.ast.AstObject;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.input.MouseEvent;
 
-import java.util.*;
-
-import dev.webfx.platform.json.Json;
-import dev.webfx.platform.json.JsonObject;
-import dev.webfx.platform.json.JsonArray;
-
-import com.orangomango.logicsim.Util;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Gate{
 	protected GraphicsContext gc;
@@ -138,23 +137,23 @@ public abstract class Gate{
 		gc.restore();
 	}
 
-	public JsonObject getJSON(){
-		JsonObject json = Json.createObject();
+	public AstObject getJSON(){
+		AstObject json = AST.createObject();
 		json.set("name", this.name);
-		JsonObject r = Json.createObject();
+		AstObject r = AST.createObject();
 		r.set("x", this.rect.getMinX());
 		r.set("y", this.rect.getMinY());
 		r.set("w", this.rect.getWidth());
 		r.set("h", this.rect.getHeight());
 		json.set("rect", r);
 		if (this.color != null){
-			JsonObject c = Json.createObject();
+			AstObject c = AST.createObject();
 			c.set("red", this.color.getRed());
 			c.set("green", this.color.getGreen());
 			c.set("blue", this.color.getBlue());
 			json.set("color", c);
 		}
-		JsonArray array = Json.createArray();
+		AstArray array = AST.createArray();
 		for (Pin p : this.pins){
 			array.push(p.getJSON());
 		}

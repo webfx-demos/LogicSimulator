@@ -1,18 +1,18 @@
 package com.orangomango.logicsim.core;
 
-import javafx.scene.canvas.GraphicsContext;
+import com.orangomango.logicsim.MainApplication;
+import com.orangomango.logicsim.Util;
+import dev.webfx.platform.ast.AstObject;
+import dev.webfx.platform.ast.ReadOnlyAstObject;
+import dev.webfx.platform.file.File;
+import dev.webfx.platform.file.FileReader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
-import java.util.*;
-import dev.webfx.platform.json.Json;
-import dev.webfx.platform.json.JsonObject;
-import dev.webfx.platform.file.File;
-import dev.webfx.platform.file.FileReader;
-
-import com.orangomango.logicsim.MainApplication;
-import com.orangomango.logicsim.Util;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Chip extends Gate{
 	private List<Gate> gates = new ArrayList<>();
@@ -23,7 +23,7 @@ public class Chip extends Gate{
 	private List<Pin> outputPins = new ArrayList<>();
 	private File file;
 	private String name;
-	private JsonObject json;
+	private ReadOnlyAstObject json;
 	private boolean loadingCompleted;
 
 	public Chip(GraphicsContext gc, Rectangle2D rect, File file, final boolean hasPins){
@@ -96,8 +96,8 @@ public class Chip extends Gate{
 	}
 
 	@Override
-	public JsonObject getJSON(){
-		JsonObject json = super.getJSON();
+	public AstObject getJSON(){
+		AstObject json = super.getJSON();
 		json.set("fileName", this.file.getName());
 		return json;
 	}
